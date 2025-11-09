@@ -32,7 +32,7 @@ const db = new Low(adapter);
 
 async function initDB() {
   await db.read();
-  db.data = db.data || { orders: [] };
+  db.data ||= { orders: [] };
   await db.write();
 }
 initDB();
