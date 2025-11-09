@@ -30,12 +30,15 @@ const file = path.join(__dirname, 'db.json');
 const adapter = new JSONFile(file);
 const db = new Low(adapter);
 
+// Init DB before server starts
 async function initDB() {
   await db.read();
-  db.data ||= { orders: [] };
+  db.data ||= { orders: [] };  // default data
   await db.write();
 }
-initDB();
+
+// Await DB initialization before listening
+await initDB();
 
 // POST /order — order-u DB-də saxla
 app.post('/order', async (req, res) => {
